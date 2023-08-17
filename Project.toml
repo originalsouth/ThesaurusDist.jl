@@ -1,0 +1,9 @@
+name = "ThesaurusDist"
+uuid = "b9c7686c-a447-43cb-9e25-7747cf1dffe5"
+authors = ["Benny <mail2benny+github@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Graphs = "86223c79-3864-5bf0-83f7-82e725a168b6"
+JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+Unicode = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
