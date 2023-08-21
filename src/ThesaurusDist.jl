@@ -4,7 +4,7 @@ using JSON
 using Unicode
 using Graphs
 
-datafile = joinpath(@__DIR__, "../en_thesaurus.jsonl")
+datafile = joinpath(@__DIR__, "en_thesaurus.jsonl")
 
 struct Word
 	word::String
@@ -29,7 +29,17 @@ for jl in JSON.parse.(eachline(datafile))
 end
 
 cin(str::String, strs::Vector{String})::Bool = any(cmp.(Ref(str), strs))
-synonyms(target::String)::Vector{String} = union(synonyms.(data[target])..., [])
+synonyms(target::String)::Vector{String} = union(synonyms.(haskey(data, nrm(target)) ? data[nrm(target)] : [])..., [])
+
+function synonyms(str::String, n::Integer)
+    retval = synonyms(str)
+    buffer = retval
+    for _ in 1:n-1
+        buffer = vcat(synonyms.(buffer)...)
+        append!(retval, buffer)
+    end
+    return retval
+end
 
 function wordspace(str1::String, str2::String)::Union{Vector{String}, Missing, Nothing}
     if cmp(str1, str2)
